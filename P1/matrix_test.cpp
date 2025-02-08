@@ -43,6 +43,7 @@ int main(){
             }
         }
     }
+    cout << "Test 1: Completed !" << endl;
 
     // --------------------------------------------------
     // Test 2: Addition and Subtraction Operators
@@ -75,6 +76,7 @@ int main(){
         assert(almostEqual(diff.get(1, 0), 4));
         assert(almostEqual(diff.get(1, 1), 4));
     }
+    cout << "Test 2: Completed !" << endl;
 
     // --------------------------------------------------
     // Test 3: Scalar Multiplication and Matrix Multiplication
@@ -170,4 +172,93 @@ int main(){
             }
         }
     }
+    cout << "Test 3: Completed !" << endl;
+
+    // --------------------------------------------------
+    // Test 4: Transpose
+    // --------------------------------------------------
+    {
+        // a = [ [1,2], [3,4] ]
+        Matrix a(2, 2);
+        a.set(0, 0, 1);
+        a.set(0, 1, 2);
+        a.set(1, 0, 3);
+        a.set(1, 1, 4);
+
+        // Transpose should yield [ [1,3], [2,4] ]
+        Matrix t = a.transpose();
+        assert(almostEqual(t.get(0, 0), 1));
+        assert(almostEqual(t.get(0, 1), 3));
+        assert(almostEqual(t.get(1, 0), 2));
+        assert(almostEqual(t.get(1, 1), 4));
+
+        // b = [ [1], [2]]
+        Matrix b(2,1);
+        b.set(0,0,1);
+        b.set(1,0,2);
+
+        // Transpose should yield [ [1, 2] ]
+        t = b.transpose();
+        assert(almostEqual(t.get(0, 0), 1));
+        assert(almostEqual(t.get(0, 1), 2));
+
+    }
+    cout << "Test 4: Completed !" << endl;
+
+    // --------------------------------------------------
+    // Test 5: Apply (element–wise function)
+    // --------------------------------------------------
+    {
+        // a = [ [1,2], [3,4] ]
+        Matrix a(2, 2);
+        a.set(0, 0, 1);
+        a.set(0, 1, 2);
+        a.set(1, 0, 3);
+        a.set(1, 1, 4);
+
+        // Apply a function to square each element.
+        Matrix squared = a.apply([](double x)
+                                 { return x * x; });
+        // Expected squared: [ [1,4], [9,16] ]
+        assert(almostEqual(squared.get(0, 0), 1));
+        assert(almostEqual(squared.get(0, 1), 4));
+        assert(almostEqual(squared.get(1, 0), 9));
+        assert(almostEqual(squared.get(1, 1), 16));
+    }
+    cout << "Test 5: Completed !" << endl;
+
+    // --------------------------------------------------
+    // Test 6: sub_mul (Subtract scalar then multiply with another matrix)
+    // --------------------------------------------------
+    {
+        // For this test, assume that sub_mul subtracts a scalar from each element of
+        // the current matrix and then multiplies (element–wise) by the corresponding element of another matrix.
+        // Let a = [ [1,2], [3,4] ] and c = [ [5,6], [7,8] ].
+        Matrix a(2, 2);
+        a.set(0, 0, -1);
+        a.set(0, 1, 2);
+        a.set(1, 0, 3);
+        a.set(1, 1, 5);
+
+        Matrix c(2, 2);
+        c.set(0, 0, 5);
+        c.set(0, 1, 6);
+        c.set(1, 0, 7);
+        c.set(1, 1, 8);
+
+        // After performing a.sub_mul(1, c), we expect each element of a to be:
+        // new_a[i][j] = (a[i][j] - 1) * c[i][j]
+        // Calculation:
+        // [ [-1-1*5, 2-1*6 ],
+        //   [3-1*7, 5-1*8 ] ]
+        // = [ [-6, -4],
+        //     [-4, -3] ]
+        a.sub_mul(1, c);
+        assert(almostEqual(a.get(0, 0), -6));
+        assert(almostEqual(a.get(0, 1), -4));
+        assert(almostEqual(a.get(1, 0), -4));
+        assert(almostEqual(a.get(1, 1), -3));
+    }
+
+    std::cout << "Matrix tests passed." << std::endl;
 }

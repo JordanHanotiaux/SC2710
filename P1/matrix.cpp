@@ -113,3 +113,36 @@ Matrix Matrix :: operator*(double scalar) const{
 }
 
 // Transpose
+
+Matrix Matrix :: transpose() const{
+
+    Matrix temp (cols, rows);
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            temp.data[j * rows + i] = data[i * cols + j];
+        }   
+    }
+    
+    return temp;
+}
+
+Matrix Matrix :: apply(const std::function<double(double)> &func) const{
+
+    Matrix temp (rows, cols);
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            temp.set(i, j, func(get(i, j)));
+        }
+    }
+    return temp;
+}
+
+void Matrix :: sub_mul(double scalar, const Matrix &other){
+    *this = *this - (other * scalar);
+}

@@ -1,7 +1,6 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-// #include <iostream> // A Supprimer
 #include <vector>
 #include <functional>
 
@@ -53,18 +52,6 @@ public:
         }
         return *this;
     }
-
-    /*
-    // A supprimer
-    void display() const {
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                std::cout << data[i * cols + j] << " ";
-            }
-            std::cout << std::endl;
-        }
-    }
-    */
 };
 
 #endif // MATRIX_H
