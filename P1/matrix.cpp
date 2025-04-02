@@ -80,6 +80,8 @@ Matrix Matrix :: operator*(const Matrix &other) const{
 
     assert(cols == other.rows);
 
+    Matrix t_other = other.transpose();
+
     Matrix temp (rows, other.cols);
 
     for (int i = 0; i < rows; i++)
@@ -89,7 +91,8 @@ Matrix Matrix :: operator*(const Matrix &other) const{
             double sum = 0.;
             for (int k = 0; k < cols; k++)
             {
-                sum += data[i * cols + k] * other.data[k * other.cols + j];
+                sum += data[i * cols + k] * t_other.data[j * t_other.cols + k];
+                //sum += data[i * cols + k] * other.data[k * other.cols + j];     //Version non optimisée
             }
             temp.data[i * other.cols + j] = sum;
         }

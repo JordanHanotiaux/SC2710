@@ -261,4 +261,32 @@ int main(){
     }
 
     std::cout << "Matrix tests passed." << std::endl;
+
+    // --------------------------------------------------
+    // Question 1
+    // --------------------------------------------------
+    {
+        Matrix a (2,2);
+        a.set(0,0,1);
+        a.set(0,1,2);
+        a.set(1,0,3);
+        a.set(1,1,4);
+
+        Matrix b (a);
+
+        b.set(0,0,5);
+
+        cout << "Original Matrix A:" << endl;
+        cout << a.get(0, 0) << " " << a.get(0, 1) << endl;
+        cout << a.get(1, 0) << " " << a.get(1, 1) << endl;
+
+        cout << "Copied Matrix B (after modification):" << endl;
+        cout << b.get(0, 0) << " " << b.get(0, 1) << endl;
+        cout << b.get(1, 0) << " " << b.get(1, 1) << endl;
+
+        cout<<"Original Matrix A (after modification):"<<endl;
+        cout << a.get(0, 0) << " " << a.get(0, 1) << endl;
+        cout << a.get(1, 0) << " " << a.get(1, 1) << endl;
+    }
+     
 }
