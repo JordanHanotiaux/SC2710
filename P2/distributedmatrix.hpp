@@ -11,7 +11,7 @@
 // storying a *local* matrix on each process that represents the part of the matrix
 // from column `startCol` (included, 0-based index) to column `startCol + localCols` (excluded, 0-based index).
 class DistributedMatrix : public AbstractMatrix
-{
+{ 
 private:
     int globalRows;    // Total number of rows
     int globalCols;    // Total number of columns
